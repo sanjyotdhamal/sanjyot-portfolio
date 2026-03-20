@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import BackgroundAnimation from "@/components/BackgroundAnimation";
 
 const queryClient = new QueryClient();
 
@@ -13,6 +14,8 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      {/* Global background animation — visible across all pages */}
+      <BackgroundAnimation />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
