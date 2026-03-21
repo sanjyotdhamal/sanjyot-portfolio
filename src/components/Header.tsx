@@ -1,15 +1,58 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTheme } from "@/components/theme-provider";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+  const [activeLink, setActiveLink] = useState<string>("#about");
   const [btnHovered, setBtnHovered] = useState(false);
   const [themeHovered, setThemeHovered] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
+  // Refs for each nav link to measure position
+  const navRefs = useRef<{ [key: string]: HTMLAnchorElement | null }>({});
+  const navContainerRef = useRef<HTMLUListElement>(null);
+
+  // Sliding indicator state
+  const [indicator, setIndicator] = useState({ left: 0, width: 0, opacity: 0 });
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Update indicator position when hovered link changes
+  useEffect(() => {
+    const key = hoveredLink || activeLink;
+    const el = navRefs.current[key];
+    const container = navContainerRef.current;
+    if (el && container) {
+      const elRect = el.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      setIndicator({
+        left: elRect.left - containerRect.left,
+        width: elRect.width,
+        opacity: 1,
+      });
+    }
+  }, [hoveredLink, activeLink]);
+
+  // Track active section on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ["#about", "#education", "#skills", "#experience", "#projects", "#contact"];
+      for (const id of [...sections].reverse()) {
+        const el = document.querySelector(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 120) {
+            setActiveLink(id);
+            break;
+          }
+        }
+      }
+    };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -33,42 +76,58 @@ const Header = () => {
       <nav className="section-container">
         <div className="flex items-center justify-between h-16 md:h-20">
 
-          {/* Nav links — left/center */}
-          <ul className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => {
-              const isHovered = hoveredLink === link.href;
-              return (
-                <li key={link.href} style={{ position: "relative" }}>
-                  <a
-                    href={link.href}
-                    onMouseEnter={() => setHoveredLink(link.href)}
-                    onMouseLeave={() => setHoveredLink(null)}
-                    style={{
-                      fontSize: "14px", display: "inline-block",
-                      transform: isHovered ? "translateY(-2px)" : "translateY(0px)",
-                      transition: "transform 0.2s ease, color 0.2s ease",
-                      color: isHovered ? "var(--foreground)" : undefined,
-                      textDecoration: "none",
-                    }}
-                    className="text-sm text-muted-foreground"
-                  >
-                    {link.label}
-                  </a>
-                  {/* Animated underline */}
-                  <span style={{
-                    position: "absolute", bottom: "-4px", left: "50%",
-                    transform: isHovered ? "translateX(-50%) scaleX(1)" : "translateX(-50%) scaleX(0)",
-                    transformOrigin: "center",
-                    width: "100%", height: "2px",
-                    background: "var(--primary)",
-                    borderRadius: "2px",
-                    transition: "transform 0.25s ease",
-                    display: "block",
-                  }} />
-                </li>
-              );
-            })}
-          </ul>
+          {/* Nav links with sliding indicator */}
+          <div className="hidden md:block relative">
+            <ul
+              ref={navContainerRef}
+              className="flex items-center gap-8"
+              onMouseLeave={() => setHoveredLink(null)}
+            >
+              {navLinks.map((link) => {
+                const isActive = activeLink === link.href;
+                const isHovered = hoveredLink === link.href;
+                return (
+                  <li key={link.href}>
+                    <a
+                      ref={(el) => { navRefs.current[link.href] = el; }}
+                      href={link.href}
+                      onMouseEnter={() => setHoveredLink(link.href)}
+                      onClick={() => setActiveLink(link.href)}
+                      style={{
+                        fontSize: "14px",
+                        display: "inline-block",
+                        transform: isHovered ? "translateY(-1px)" : "translateY(0px)",
+                        transition: "transform 0.2s ease, color 0.2s ease",
+                        color: isActive || isHovered ? "var(--foreground)" : undefined,
+                        textDecoration: "none",
+                        fontWeight: isActive ? 500 : 400,
+                        paddingBottom: "4px",
+                      }}
+                      className="text-sm text-muted-foreground"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+
+            {/* Sliding magic underline */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "-4px",
+                left: `${indicator.left}px`,
+                width: `${indicator.width}px`,
+                height: "2px",
+                background: "var(--primary)",
+                borderRadius: "2px",
+                opacity: indicator.opacity,
+                transition: "left 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.2s ease",
+                pointerEvents: "none",
+              }}
+            />
+          </div>
 
           {/* Right side — Get in Touch + dark mode toggle */}
           <div className="flex items-center gap-3 ml-auto">
@@ -116,7 +175,6 @@ const Header = () => {
               }}
             >
               {theme === "dark" ? (
-                // Sun icon — shown in dark mode
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" strokeWidth="2" strokeLinecap="round">
                   <circle cx="12" cy="12" r="5"/>
                   <line x1="12" y1="1" x2="12" y2="3"/>
@@ -129,7 +187,6 @@ const Header = () => {
                   <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
                 </svg>
               ) : (
-                // Moon icon — shown in light mode
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
                   style={{ color: themeHovered ? "#6366f1" : "var(--muted-foreground)" }}
                 >
