@@ -169,13 +169,13 @@ const Contact = () => {
       <div className="section-container">
         <p className="section-title">Contact</p>
 
-        <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
-          Let's Connect
-        </h2>
+<h2 className="text-2xl md:text-3xl text-foreground mb-12 section-heading">
+  Let's Connect
+</h2>
 
         <p className="text-muted-foreground mb-12 max-w-xl">
           I'm open to internship opportunities, collaborations, and conversations
-          about AI/ML projects. Feel free to reach out.
+          about AI/ML projects and web devlopment. Feel free to reach out.
         </p>
 
         <div ref={ref} className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">

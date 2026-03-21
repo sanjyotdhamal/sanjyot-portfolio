@@ -34,9 +34,11 @@ const Experience = () => {
     <section id="experience" className="section-padding">
       <div className="section-container">
         <p className="section-title">Experience</p>
-        <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-12">
-          Work Experience
-        </h2>
+        <h2 className="text-2xl md:text-3xl text-foreground mb-12 section-heading">
+  Work Experience
+</h2>
+          
+        
 
         <div ref={ref} className="flex gap-0">
 

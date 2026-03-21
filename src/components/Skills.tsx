@@ -109,9 +109,12 @@ const Skills = () => {
     <section id="skills" className="section-padding bg-secondary/30">
       <div className="section-container">
         <p className="section-title">Technical Skills</p>
-        <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-12">
-          Technologies & Expertise
-        </h2>
+        <h2 className="text-2xl md:text-3xl text-foreground mb-12 section-heading">
+  Technologies & Expertise
+</h2>
+
+          
+        
 
         <div ref={ref} className="grid md:grid-cols-2 gap-8">
           {skillCategories.map((category, index) => {

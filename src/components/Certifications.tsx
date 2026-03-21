@@ -137,9 +137,9 @@ const Certifications = () => {
     <section id="certifications" className="section-padding">
       <div className="section-container">
         <p className="section-title">Certifications</p>
-        <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-12">
-          Professional Development
-        </h2>
+        <h2 className="text-2xl md:text-3xl text-foreground mb-12 section-heading">
+  Professional Development
+</h2>
       </div>
 
       {/* Marquee band — uses bg-secondary/30 to match rest of portfolio */}

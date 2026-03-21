@@ -161,9 +161,9 @@ const Achievements = () => {
     <section id="achievements" className="section-padding bg-secondary/30">
       <div className="section-container">
         <p className="section-title">Achievements & Activities</p>
-        <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-12">
-          Recognition & Growth
-        </h2>
+        <h2 className="text-2xl md:text-3xl text-foreground mb-12 section-heading">
+  Recognition and Growth
+</h2>
 
         <div ref={ref} className="grid sm:grid-cols-2 gap-6">
           {achievements.map((achievement, index) => (

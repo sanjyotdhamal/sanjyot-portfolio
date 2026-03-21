@@ -285,7 +285,7 @@ const Hero = () => {
                 }}
               >
                 <Download style={{ width: "16px", height: "16px" }} />
-                Download Resume
+                View Resume
               </a>
             </div>
           </div>
@@ -315,7 +315,7 @@ const Hero = () => {
                   width: "220px", height: "220px",
                   borderRadius: "50%",
                   objectFit: "cover",
-                  border: "4px solid white",
+                  border: "3px solid white",
                   boxShadow: "0 8px 32px rgba(59,130,246,0.15)",
                   position: "relative", zIndex: 1,
                 }}
@@ -324,10 +324,10 @@ const Hero = () => {
               <div style={{
                 position: "absolute", bottom: "14px", right: "14px",
                 width: "16px", height: "16px", borderRadius: "50%",
-                background: "#10b981",
+                background: "#2166bb",
                 border: "3px solid white",
-                zIndex: 2,
-                boxShadow: "0 0 8px rgba(16,185,129,0.5)",
+                zIndex: 1,
+                boxShadow: "0 0 8px rgba(2, 48, 33, 0.5)",
               }} />
             </div>
 

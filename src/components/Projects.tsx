@@ -310,9 +310,9 @@ const Projects = () => {
     <section id="projects" className="section-padding bg-secondary/30">
       <div className="section-container">
         <p className="section-title">Projects</p>
-        <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-12">
-          Featured Work
-        </h2>
+        <h2 className="text-2xl md:text-3xl text-foreground mb-12 section-heading">
+  Featured Work
+</h2>
 
         {/* Vertical project rows */}
         <div className="flex flex-col gap-4">

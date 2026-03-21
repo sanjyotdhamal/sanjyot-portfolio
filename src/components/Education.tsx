@@ -178,9 +178,9 @@ const Education = () => {
     <section id="education" className="section-padding">
       <div className="section-container">
         <p className="section-title">Education</p>
-        <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-12">
-          Academic Background
-        </h2>
+        <h2 className="text-2xl md:text-3xl text-foreground mb-12 section-heading">
+  Academic Background
+</h2>
 
         <div ref={ref}>
           {educationData.map((edu, index) => (
