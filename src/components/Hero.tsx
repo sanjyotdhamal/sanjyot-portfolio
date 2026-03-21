@@ -177,7 +177,7 @@ const Hero = () => {
 
   const fadeLeft = (visible: boolean, delay = 0): React.CSSProperties => ({
     opacity: visible ? 1 : 0,
-    transform: visible ? "translateX(0px)" : "translateX(30px)",
+    transform: visible ? "translateX(0px)" : "translateX(-30px)",
     transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
   });
 
@@ -188,9 +188,72 @@ const Hero = () => {
       <ParticlesBackground />
 
       <div className="section-container py-20 relative z-10 w-full">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="flex flex-col md:grid md:grid-cols-2 gap-12 items-center">
 
-          {/* ── Left — text ── */}
+          {/* ── LEFT — image + socials ── */}
+          <div style={{ ...fadeLeft(v0), display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
+
+            {/* Image with spinning rings */}
+            <div style={{ position: "relative", width: "220px", height: "220px" }}>
+              {/* Outer spinning ring */}
+              <div style={{
+                position: "absolute", inset: "-18px", borderRadius: "50%",
+                border: "1.5px dashed rgba(59,130,246,0.25)",
+                animation: "spin-slow 20s linear infinite reverse",
+              }} />
+              {/* Inner spinning ring */}
+              <div style={{
+                position: "absolute", inset: "-8px", borderRadius: "50%",
+                border: "2px dashed rgba(59,130,246,0.35)",
+                animation: "spin-slow 12s linear infinite",
+              }} />
+              {/* Profile image */}
+              <img
+                src={profileImage}
+                alt="Sanjyot Dhamal"
+                style={{
+                  width: "220px", height: "220px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                  border: "3px solid white",
+                  boxShadow: "0 8px 32px rgba(59,130,246,0.15)",
+                  position: "relative", zIndex: 1,
+                }}
+              />
+              {/* Glowing dot */}
+              <div style={{
+                position: "absolute", bottom: "14px", right: "14px",
+                width: "16px", height: "16px", borderRadius: "50%",
+                background: "#10b981",
+                border: "3px solid white",
+                zIndex: 2,
+                boxShadow: "0 0 8px rgba(16,185,129,0.5)",
+              }} />
+            </div>
+
+            {/* Social icons */}
+            <div style={{ ...fadeUp(v5), display: "flex", gap: "10px" }}>
+              <SocialBtn href="https://github.com/sanjyotdhamal">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                </svg>
+              </SocialBtn>
+              <SocialBtn href="https://www.linkedin.com/in/sanjyot-dhamal-2b6205289">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                  <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+                </svg>
+              </SocialBtn>
+              <SocialBtn href="mailto:sanjyotdhamal31@gmail.com">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </SocialBtn>
+            </div>
+          </div>
+
+          {/* ── RIGHT — text ── */}
           <div>
             {/* Badge */}
             <div style={fadeUp(v0)}>
@@ -222,8 +285,7 @@ const Hero = () => {
                 marginBottom: "0.75rem",
                 color: "var(--foreground)",
               }}>
-                Sanjyot Dhamal <br />
-                
+                Sanjyot Dhamal
               </h1>
             </div>
 
@@ -290,68 +352,6 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* ── Right — image + socials ── */}
-          <div style={{ ...fadeLeft(v0), display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
-
-            {/* Image with spinning rings */}
-            <div style={{ position: "relative", width: "220px", height: "220px" }}>
-              {/* Outer spinning ring */}
-              <div style={{
-                position: "absolute", inset: "-18px", borderRadius: "50%",
-                border: "1.5px dashed rgba(59,130,246,0.25)",
-                animation: "spin-slow 20s linear infinite reverse",
-              }} />
-              {/* Inner spinning ring */}
-              <div style={{
-                position: "absolute", inset: "-8px", borderRadius: "50%",
-                border: "2px dashed rgba(59,130,246,0.35)",
-                animation: "spin-slow 12s linear infinite",
-              }} />
-              {/* Profile image */}
-              <img
-                src={profileImage}
-                alt="Sanjyot Dhamal"
-                style={{
-                  width: "220px", height: "220px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                  border: "3px solid white",
-                  boxShadow: "0 8px 32px rgba(59,130,246,0.15)",
-                  position: "relative", zIndex: 1,
-                }}
-              />
-              {/* Glowing dot */}
-              <div style={{
-                position: "absolute", bottom: "14px", right: "14px",
-                width: "16px", height: "16px", borderRadius: "50%",
-                background: "#2166bb",
-                border: "3px solid white",
-                zIndex: 1,
-                boxShadow: "0 0 8px rgba(2, 48, 33, 0.5)",
-              }} />
-            </div>
-
-            {/* Social icons */}
-            <div style={{ ...fadeUp(v5), display: "flex", gap: "10px" }}>
-              <SocialBtn href="https://github.com/sanjyotdhamal">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                </svg>
-              </SocialBtn>
-              <SocialBtn href="https://www.linkedin.com/in/sanjyot-dhamal-2b6205289">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                  <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
-                </svg>
-              </SocialBtn>
-              <SocialBtn href="mailto:sanjyotdhamal31@gmail.com">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                  <polyline points="22,6 12,13 2,6"/>
-                </svg>
-              </SocialBtn>
-            </div>
-          </div>
         </div>
       </div>
 
