@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { ArrowDown, Download } from "lucide-react";
+import { Download } from "lucide-react";
 import profileImage from "@/assets/profile.png";
 
 // ── Floating Particles Background ────────────────────────────────────────────
@@ -34,7 +33,6 @@ const ParticlesBackground = () => {
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -50,19 +48,16 @@ const ParticlesBackground = () => {
           }
         }
       }
-
       particles.forEach((p) => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(120,120,120,${p.opacity})`;
         ctx.fill();
-
         p.x += p.dx;
         p.y += p.dy;
         if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
         if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
       });
-
       animFrameId = requestAnimationFrame(draw);
     };
 
@@ -99,7 +94,6 @@ const TypingText = () => {
   useEffect(() => {
     const current = roles[roleIndex];
     let timeout: ReturnType<typeof setTimeout>;
-
     if (!deleting && displayed.length < current.length) {
       timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 80);
     } else if (!deleting && displayed.length === current.length) {
@@ -110,12 +104,11 @@ const TypingText = () => {
       setDeleting(false);
       setRoleIndex((prev) => (prev + 1) % roles.length);
     }
-
     return () => clearTimeout(timeout);
   }, [displayed, deleting, roleIndex]);
 
   return (
-    <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-4">
+    <p className="text-lg md:text-xl leading-relaxed mb-4" style={{ color: "var(--muted-foreground)", fontWeight: 300, minHeight: "32px" }}>
       {displayed}
       <span
         className="inline-block w-0.5 h-5 bg-primary ml-0.5 align-middle"
@@ -135,95 +128,229 @@ const useMountFade = (delay: number) => {
   return visible;
 };
 
+// ── Social Icon Button ────────────────────────────────────────────────────────
+const SocialBtn = ({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) => {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        width: "38px", height: "38px",
+        borderRadius: "10px",
+        background: hovered ? "#E6F1FB" : "var(--secondary, rgba(0,0,0,0.04))",
+        border: `1px solid ${hovered ? "#3b82f6" : "var(--border, rgba(0,0,0,0.1))"}`,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        transition: "all 0.2s ease",
+        transform: hovered ? "translateY(-3px)" : "translateY(0)",
+        textDecoration: "none",
+      }}
+    >
+      {children}
+    </a>
+  );
+};
+
 // ── Main Hero Component ───────────────────────────────────────────────────────
 const Hero = () => {
   const v0 = useMountFade(100);
-  const v1 = useMountFade(300);
-  const v2 = useMountFade(500);
-  const v3 = useMountFade(700);
-  const v4 = useMountFade(900);
+  const v1 = useMountFade(250);
+  const v2 = useMountFade(400);
+  const v3 = useMountFade(550);
+  const v4 = useMountFade(700);
+  const v5 = useMountFade(850);
 
-  const fadeStyle = (visible: boolean, extraDelay = 0): React.CSSProperties => ({
+  const fadeUp = (visible: boolean, delay = 0): React.CSSProperties => ({
     opacity: visible ? 1 : 0,
     transform: visible ? "translateY(0px)" : "translateY(24px)",
-    transition: `opacity 0.7s ease ${extraDelay}ms, transform 0.7s ease ${extraDelay}ms`,
+    transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
   });
+
+  const fadeLeft = (visible: boolean, delay = 0): React.CSSProperties => ({
+    opacity: visible ? 1 : 0,
+    transform: visible ? "translateX(0px)" : "translateX(30px)",
+    transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
+  });
+
+  const [btnHovered, setBtnHovered] = useState<string | null>(null);
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Particles */}
       <ParticlesBackground />
 
-      <div className="section-container py-32 relative z-10">
-        <div className="max-w-4xl">
-          {/* Profile image + name row */}
-          <div className="flex flex-col md:flex-row items-center gap-8 mb-8">
+      <div className="section-container py-20 relative z-10 w-full">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
 
-            {/* Profile image with ring pulse */}
-            <div style={fadeStyle(v0)} className="relative flex-shrink-0">
-              <div
-                className="absolute inset-0 rounded-full border-2 border-primary/30"
-                style={{ animation: "ring-pulse 2.5s ease-out infinite" }}
-              />
+          {/* ── Left — text ── */}
+          <div>
+            {/* Badge */}
+            <div style={fadeUp(v0)}>
+              <div style={{
+                display: "inline-flex", alignItems: "center", gap: "6px",
+                fontSize: "11px", fontWeight: 500, letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: "#185FA5", background: "#E6F1FB",
+                border: "0.5px solid #B5D4F4",
+                borderRadius: "20px", padding: "5px 14px",
+                marginBottom: "1.5rem",
+              }}>
+                <span style={{
+                  width: "6px", height: "6px", borderRadius: "50%",
+                  background: "#3b82f6",
+                  animation: "pulse-badge 2s ease-in-out infinite",
+                }} />
+                Computer Science Engineering Student
+              </div>
+            </div>
+
+            {/* Name */}
+            <div style={fadeUp(v1)}>
+              <h1 style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "clamp(40px, 5.5vw, 64px)",
+                fontWeight: 700,
+                lineHeight: 1.1,
+                marginBottom: "0.75rem",
+                color: "var(--foreground)",
+              }}>
+                Sanjyot Dhamal <br />
+                
+              </h1>
+            </div>
+
+            {/* Typing */}
+            <div style={fadeUp(v2)}>
+              <TypingText />
+            </div>
+
+            {/* Description */}
+            <div style={fadeUp(v3)}>
+              <p className="text-muted-foreground leading-relaxed mb-8 max-w-lg" style={{ fontSize: "15px" }}>
+                Computer Science Engineering student with strong interest in Artificial
+                Intelligence and Machine Learning. Experienced in building data-driven
+                applications, blockchain-based systems, and practical ML solutions.
+              </p>
+            </div>
+
+            {/* Buttons */}
+            <div style={{ ...fadeUp(v4), display: "flex", flexWrap: "wrap", gap: "12px" }}>
+              {/* Primary button */}
+              <a
+                href="#projects"
+                onMouseEnter={() => setBtnHovered("primary")}
+                onMouseLeave={() => setBtnHovered(null)}
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: "8px",
+                  padding: "12px 24px", borderRadius: "10px",
+                  fontSize: "14px", fontWeight: 500,
+                  background: btnHovered === "primary" ? "#1e293b" : "#0f172a",
+                  color: "white", border: "none", textDecoration: "none",
+                  transform: btnHovered === "primary" ? "translateY(-2px)" : "translateY(0)",
+                  boxShadow: btnHovered === "primary" ? "0 8px 20px rgba(0,0,0,0.2)" : "none",
+                  transition: "all 0.25s ease",
+                }}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
+                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                  <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                View Projects
+              </a>
+
+              {/* Outline button */}
+              <a
+                href={`${import.meta.env.BASE_URL}resume.pdf`}
+                download
+                onMouseEnter={() => setBtnHovered("outline")}
+                onMouseLeave={() => setBtnHovered(null)}
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: "8px",
+                  padding: "11px 22px", borderRadius: "10px",
+                  fontSize: "14px", fontWeight: 500,
+                  background: "transparent",
+                  color: btnHovered === "outline" ? "#3b82f6" : "var(--foreground)",
+                  border: `1.5px solid ${btnHovered === "outline" ? "#3b82f6" : "var(--border, rgba(0,0,0,0.2))"}`,
+                  textDecoration: "none",
+                  transform: btnHovered === "outline" ? "translateY(-2px)" : "translateY(0)",
+                  transition: "all 0.25s ease",
+                }}
+              >
+                <Download style={{ width: "16px", height: "16px" }} />
+                Download Resume
+              </a>
+            </div>
+          </div>
+
+          {/* ── Right — image + socials ── */}
+          <div style={{ ...fadeLeft(v0), display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
+
+            {/* Image with spinning rings */}
+            <div style={{ position: "relative", width: "220px", height: "220px" }}>
+              {/* Outer spinning ring */}
+              <div style={{
+                position: "absolute", inset: "-18px", borderRadius: "50%",
+                border: "1.5px dashed rgba(59,130,246,0.25)",
+                animation: "spin-slow 20s linear infinite reverse",
+              }} />
+              {/* Inner spinning ring */}
+              <div style={{
+                position: "absolute", inset: "-8px", borderRadius: "50%",
+                border: "2px dashed rgba(59,130,246,0.35)",
+                animation: "spin-slow 12s linear infinite",
+              }} />
+              {/* Profile image */}
               <img
                 src={profileImage}
                 alt="Sanjyot Dhamal"
-                className="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover border-4 border-primary/20 shadow-lg relative z-10"
+                style={{
+                  width: "220px", height: "220px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                  border: "4px solid white",
+                  boxShadow: "0 8px 32px rgba(59,130,246,0.15)",
+                  position: "relative", zIndex: 1,
+                }}
               />
+              {/* Glowing dot */}
+              <div style={{
+                position: "absolute", bottom: "14px", right: "14px",
+                width: "16px", height: "16px", borderRadius: "50%",
+                background: "#10b981",
+                border: "3px solid white",
+                zIndex: 2,
+                boxShadow: "0 0 8px rgba(16,185,129,0.5)",
+              }} />
             </div>
 
-            <div>
-              {/* Label */}
-              <div style={fadeStyle(v1)}>
-                <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground mb-4">
-                  COMPUTER SCIENCE ENGINEERING STUDENT
-                </p>
-              </div>
-
-              {/* Name — Playfair Display font */}
-              <div style={fadeStyle(v2)}>
-                <h1
-                  className="text-4xl md:text-5xl lg:text-6xl text-foreground mb-6"
-                  style={{
-                    fontFamily: "'Playfair Display', serif",
-                    fontWeight: 700,
-                    letterSpacing: "-0.5px",
-                  }}
-                >
-                  Sanjyot Dhamal
-                </h1>
-              </div>
+            {/* Social icons */}
+            <div style={{ ...fadeUp(v5), display: "flex", gap: "10px" }}>
+              <SocialBtn href="https://github.com/sanjyotdhamal">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                </svg>
+              </SocialBtn>
+              <SocialBtn href="https://www.linkedin.com/in/sanjyot-dhamal-2b6205289">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                  <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+                </svg>
+              </SocialBtn>
+              <SocialBtn href="mailto:sanjyotdhamal31@gmail.com">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </SocialBtn>
             </div>
-          </div>
-
-          {/* Typing role */}
-          <div style={fadeStyle(v3)}>
-            <TypingText />
-          </div>
-
-          {/* Description */}
-          <div style={fadeStyle(v3)}>
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-10 max-w-2xl">
-              Computer Science Engineering student with strong interest in Artificial
-              Intelligence and Machine Learning. Experienced in building data-driven
-              applications, blockchain-based systems, and practical ML solutions.
-            </p>
-          </div>
-
-          {/* Buttons */}
-          <div style={fadeStyle(v4)} className="flex flex-wrap gap-4">
-            <Button variant="hero" size="lg" asChild>
-              <a href="#projects">
-                View Projects
-                <ArrowDown className="ml-2 h-4 w-4" />
-              </a>
-            </Button>
-            <Button variant="heroOutline" size="lg" asChild>
-              <a href={`${import.meta.env.BASE_URL}resume.pdf`} download>
-                <Download className="mr-2 h-4 w-4" />
-                Download Resume
-              </a>
-            </Button>
           </div>
         </div>
       </div>
@@ -231,21 +358,17 @@ const Hero = () => {
       {/* Scroll down indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
         <a href="#about" className="text-muted-foreground hover:text-foreground transition-colors">
-          <ArrowDown className="h-5 w-5" />
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
+          </svg>
         </a>
       </div>
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap');
-
-        @keyframes blink-cursor {
-          0%, 100% { opacity: 1; }
-          50%       { opacity: 0; }
-        }
-        @keyframes ring-pulse {
-          0%   { transform: scale(1);    opacity: 0.6; }
-          100% { transform: scale(1.18); opacity: 0;   }
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+        @keyframes blink-cursor { 0%,100%{opacity:1} 50%{opacity:0} }
+        @keyframes spin-slow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+        @keyframes pulse-badge { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.7)} }
       `}</style>
     </section>
   );

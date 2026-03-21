@@ -2,7 +2,7 @@
 
 # 👋 Hi, I'm Sanjyot Dhamal
 
-### 🎓 Computer Engineering Student | 🤖 AI & ML Enthusiast | 🚣 Athlete|Rower
+### 🎓 Computer Engineering Student | 🤖 AI & ML Enthusiast | 🚣 Athlete | Rower
 
 [![Portfolio](https://img.shields.io/badge/🌐_Portfolio-Live-brightgreen?style=for-the-badge)](https://sanjyot-portfolio.netlify.app)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/sanjyot-dhamal-2b6205289)
