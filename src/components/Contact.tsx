@@ -1,3 +1,4 @@
+import SectionParallax from "@/components/SectionParallax";
 import { useEffect, useRef, useState } from "react";
 import { Mail, Phone, MapPin, Linkedin, Github } from "lucide-react";
 
@@ -165,8 +166,9 @@ const Contact = () => {
   const { ref, visible } = useStaggerFade(contactInfo.length);
 
   return (
-    <section id="contact" className="section-padding bg-secondary/30">
-      <div className="section-container">
+    <section id="contact" className="section-padding bg-secondary/30" style={{ position: "relative" }}>
+      <SectionParallax color1="59,130,246" color2="16,185,129" />
+      <div className="section-container relative z-10">
         <p className="section-title">Contact</p>
 
 <h2 className="text-2xl md:text-3xl text-foreground mb-12 section-heading">

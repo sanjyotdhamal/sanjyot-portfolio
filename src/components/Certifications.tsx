@@ -1,3 +1,4 @@
+import SectionParallax from "@/components/SectionParallax";
 import { Award, Eye } from "lucide-react";
 import { useState, useRef } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
@@ -134,8 +135,9 @@ const Certifications = () => {
   };
 
   return (
-    <section id="certifications" className="section-padding">
-      <div className="section-container">
+    <section id="certifications" className="section-padding" style={{ position: "relative" }}>
+      <SectionParallax color1="245,158,11" color2="236,72,153" />
+      <div className="section-container relative z-10">
         <p className="section-title">Certifications</p>
         <h2 className="text-2xl md:text-3xl text-foreground mb-12 section-heading">
   Professional Development

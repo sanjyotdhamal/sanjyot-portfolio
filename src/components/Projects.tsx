@@ -1,3 +1,4 @@
+import SectionParallax from "@/components/SectionParallax";
 import { useState, useRef, useEffect } from "react";
 import { Droplets, Layers, Leaf, ExternalLink, Github, FileText } from "lucide-react";
 import {
@@ -307,8 +308,9 @@ const Projects = () => {
   const selected = selectedProject !== null ? projects[selectedProject] : null;
 
   return (
-    <section id="projects" className="section-padding bg-secondary/30">
-      <div className="section-container">
+    <section id="projects" className="section-padding bg-secondary/30" style={{ position: "relative" }}>
+      <SectionParallax color1="139,92,246" color2="236,72,153" />
+      <div className="section-container relative z-10">
         <p className="section-title">Projects</p>
         <h2 className="text-2xl md:text-3xl text-foreground mb-12 section-heading">
   Featured Work

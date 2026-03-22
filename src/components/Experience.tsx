@@ -1,3 +1,4 @@
+import SectionParallax from "@/components/SectionParallax";
 import { useEffect, useRef, useState } from "react";
 import { Briefcase } from "lucide-react";
 
@@ -31,8 +32,9 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="section-padding">
-      <div className="section-container">
+    <section id="experience" className="section-padding" style={{ position: "relative" }}>
+      <SectionParallax color1="59,130,246" color2="139,92,246" />
+      <div className="section-container relative z-10">
         <p className="section-title">Experience</p>
         <h2 className="text-2xl md:text-3xl text-foreground mb-12 section-heading">
   Work Experience

@@ -1,3 +1,4 @@
+import SectionParallax from "@/components/SectionParallax";
 import { useEffect, useRef, useState } from "react";
 import { GraduationCap } from "lucide-react";
 
@@ -175,8 +176,9 @@ const Education = () => {
   const { ref, inView } = useInView();
 
   return (
-    <section id="education" className="section-padding">
-      <div className="section-container">
+    <section id="education" className="section-padding" style={{ position: "relative" }}>
+      <SectionParallax color1="59,130,246" color2="16,185,129" />
+      <div className="section-container relative z-10">
         <p className="section-title">Education</p>
         <h2 className="text-2xl md:text-3xl text-foreground mb-12 section-heading">
   Academic Background

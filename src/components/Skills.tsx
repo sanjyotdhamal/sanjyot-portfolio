@@ -1,3 +1,4 @@
+import SectionParallax from "@/components/SectionParallax";
 import { useEffect, useRef, useState } from "react";
 
 // ── Staggered scroll fade-in hook ─────────────────────────────────────────────
@@ -106,8 +107,9 @@ const Skills = () => {
   const { ref, visible } = useStaggerFade(skillCategories.length);
 
   return (
-    <section id="skills" className="section-padding bg-secondary/30">
-      <div className="section-container">
+    <section id="skills" className="section-padding bg-secondary/30" style={{ position: "relative" }}>
+      <SectionParallax color1="16,185,129" color2="245,158,11" />
+      <div className="section-container relative z-10">
         <p className="section-title">Technical Skills</p>
         <h2 className="text-2xl md:text-3xl text-foreground mb-12 section-heading">
   Technologies & Expertise

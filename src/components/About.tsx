@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import SectionParallax from "@/components/SectionParallax"; // ← add this line
+// import { useEffect, useRef, useState } from "react";
 
 // ── Scroll visibility hook ────────────────────────────────────────────────────
 const useInView = () => {
@@ -183,8 +185,9 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="section-padding bg-secondary/30">
-      <div className="section-container">
+    <section id="about" className="section-padding bg-secondary/30" style={{ position: "relative" }}>
+  <SectionParallax color1="59,130,246" color2="139,92,246" />
+      <div className="section-container relative z-10">
         <p className="section-title">About Me</p>
 
         <div className="grid md:grid-cols-2 gap-12 items-start">
