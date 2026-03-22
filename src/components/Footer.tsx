@@ -41,7 +41,7 @@ const Footer = () => {
               className="text-lg font-semibold"
               style={{ fontFamily: "'Playfair Display', serif", letterSpacing: "-0.5px" }}
             >
-              Sanjyot Dhamal
+              Samarth Kale
             </p>
             <p className="text-xs text-muted-foreground">
               AI & ML Enthusiast · Computer Engineer
@@ -122,7 +122,7 @@ const Footer = () => {
           style={{ borderTop: "1px solid var(--border)" }}
         >
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Sanjyot Dhamal. All rights reserved.
+            © {new Date().getFullYear()} Samarth Kale. All rights reserved.
           </p>
         </div>
       </div>
