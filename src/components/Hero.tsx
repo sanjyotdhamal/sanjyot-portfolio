@@ -182,7 +182,7 @@ const Hero = () => {
             <div style={{ position: "relative", width: "220px", height: "220px" }}>
               <div style={{ position: "absolute", inset: "-18px", borderRadius: "50%", border: "1.5px dashed rgba(59,130,246,0.25)", animation: "spin-slow 20s linear infinite reverse" }} />
               <div style={{ position: "absolute", inset: "-8px", borderRadius: "50%", border: "2px dashed rgba(59,130,246,0.35)", animation: "spin-slow 12s linear infinite" }} />
-              <img src={profileImage} alt="Samarth Kale" style={{
+              <img src={profileImage} alt="Sanjyot Dhamal" style={{
                 width: "220px", height: "220px", borderRadius: "50%",
                 objectFit: "cover", objectPosition: "center top",
                 border: "3px solid white",

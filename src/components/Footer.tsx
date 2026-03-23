@@ -122,7 +122,7 @@ const Footer = () => {
           style={{ borderTop: "1px solid var(--border)" }}
         >
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Samarth Kale. All rights reserved.
+            © {new Date().getFullYear()} Sanjyot Dhamal. All rights reserved.
           </p>
         </div>
       </div>
