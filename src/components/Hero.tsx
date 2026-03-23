@@ -230,7 +230,7 @@ const Hero = () => {
             </div>
             <div style={fadeUp(v1)}>
               <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(40px, 5.5vw, 64px)", fontWeight: 700, lineHeight: 1.1, marginBottom: "0.75rem", color: "var(--foreground)" }}>
-                Samarth Kale
+                Sanjyot Dhamal
               </h1>
             </div>
             <div style={fadeUp(v2)}><TypingText /></div>
