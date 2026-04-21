@@ -1,6 +1,6 @@
 import SectionParallax from "@/components/SectionParallax";
 import { useState, useRef, useEffect } from "react";
-import { Droplets, Layers, Leaf, ExternalLink, Github, FileText } from "lucide-react";
+import { Droplets, Layers, Leaf,Wheat, ExternalLink, Github, FileText } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -243,6 +243,52 @@ const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
 
   const projects = [
+    {
+  title: "Krushi Sahayak",
+  icon: Wheat,
+  technologies: ["Node.js", "Express.js", "MongoDB", "Gemini AI", "HTML", "CSS", "JavaScript", "JWT"],
+  year: "2026",
+  description: [
+    "AI-powered farmer subsidy portal for Maharashtra with bilingual (English + Marathi) support",
+    "Google Gemini 2.0 Flash API recommends best government schemes based on farmer profile",
+    "Complete farmer-to-authority workflow — apply, review, approve/reject with real-time notifications",
+    "Integrates 32 real Maharashtra government schemes across 7 departments (MahaDBT, Central Govt, etc.)",
+  ],
+  detail: {
+    overview: "Krushi Sahayak is a full-stack web portal that helps Maharashtra farmers discover, apply for, and track government subsidy schemes. Features AI-powered recommendations, real-time application tracking, and an authority dashboard for scheme approval workflow.",
+    features: [
+      "AI Scheme Recommendation (Gemini API + Weighted Scoring Algorithm)",
+      "Bilingual Interface (English + Marathi)",
+      "OTP-based Farmer Authentication (JWT + Fast2SMS)",
+      "32 Real Government Schemes across 7 Departments",
+      "Real-time Application Tracking with Status Timeline",
+      "Authority Dashboard — Approve / Reject Applications",
+      "Automated Farmer Notifications after Approval/Rejection",
+      "Session Caching for AI Results (80% API call reduction)",
+    ],
+    techStack: [
+      "Node.js", "Express.js", "MongoDB", "Mongoose",
+      "Google Gemini 2.0 Flash API", "JWT Authentication",
+      "Fast2SMS OTP", "HTML5", "CSS3", "Vanilla JavaScript",
+    ],
+    impact: [
+      "Bridges digital gap for 1.5 crore Maharashtra farmers",
+      "Simplifies access to government subsidies worth ₹6,000 – ₹3,00,000",
+      "Reduces application rejection due to document errors",
+      "Real-time status tracking eliminates manual follow-ups",
+    ],
+    learned: [
+      "Full-stack development with Node.js and MongoDB",
+      "Gemini AI API integration and prompt engineering",
+      "JWT authentication and OTP-based login systems",
+      "RESTful API design and Express middleware",
+      "Bilingual UI development for low-literacy users",
+    ],
+    liveDemo: "#",
+    github: "https://github.com/YOURUSERNAME/krushi-sahayak",
+    report: "#",
+  } as ProjectDetail,
+},
     {
       title: "Smart Agri-Booth",
       icon: Leaf,
