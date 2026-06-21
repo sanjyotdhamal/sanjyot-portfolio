@@ -209,13 +209,7 @@ const SportsCard = ({
 
 // ── Main Component ────────────────────────────────────────────────────────────
 const Sports = () => {
-  const { ref, visible } = useStaggerFade(2);
-
-  const card1Tiles = [
-    { icon: Clock,  title: "Discipline",  subtitle: "Rigorous training",   color: "#3b82f6" },
-    { icon: Users,  title: "Teamwork",    subtitle: "Synchronized effort", color: "#8b5cf6" },
-    { icon: Medal,  title: "Consistency", subtitle: "Daily commitment",    color: "#10b981" },
-  ];
+  const { ref, visible } = useStaggerFade(1);
 
   const card2Tiles = [
     { icon: Waves,          title: "Indoor Rowing", subtitle: "Ergometer sport",  color: "#3b82f6" },
@@ -233,6 +227,20 @@ const Sports = () => {
 
 
         <div ref={ref} className="flex flex-col gap-6">
+
+          <SportsCard
+            accentColor="#cd7f32"
+            badge="STATE LEVEL"
+            badgeBg="rgba(205,127,50,0.1)"
+            icon={Medal}
+            title="1st Maharashtra Under-23 State Rowing Championship"
+            achievement="🥉 Bronze Medal"
+            achievementColor="#cd7f32"
+            description="Secured a bronze medal at the state-level championship, showcasing consistent performance and competitive strength in rowing at the Under-23 category."
+            tiles={card1Tiles}
+            visible={visible[2]}
+            delay={360}
+/>
           <SportsCard
             accentColor="#3b82f6"
             badge="NATIONAL LEVEL"

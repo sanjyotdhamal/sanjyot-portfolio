@@ -73,7 +73,7 @@ const Skills = () => {
   const skillCategories = [
     {
       title: "Programming Languages",
-      skills: ["Python", "C", "SQL", "JavaScript", "HTML", "CSS"],
+      skills: ["Python", "Java", "SQL", "JavaScript", "HTML", "CSS"],
     },
     {
       title: "Machine Learning & AI",
@@ -95,6 +95,7 @@ const Skills = () => {
         "Tableau",
         "Google Cloud Platform",
         "Jupyter Notebook",
+        "Power BI",
         "VS Code",
       ],
     },
