@@ -211,7 +211,7 @@ const SportsCard = ({
 const Sports = () => {
   const { ref, visible } = useStaggerFade(1);
 
-  const card2Tiles = [
+  const cardTiles = [
     { icon: Waves,          title: "Indoor Rowing", subtitle: "Ergometer sport",  color: "#3b82f6" },
     { icon: Footprints,     title: "Cross Country", subtitle: "Endurance running", color: "#10b981" },
     { icon: PersonStanding, title: "Mini Marathon", subtitle: "Distance running",  color: "#f59e0b" },
@@ -237,7 +237,7 @@ const Sports = () => {
             achievement="🥉 Bronze Medal"
             achievementColor="#cd7f32"
             description="Secured a bronze medal at the state-level championship, showcasing consistent performance and competitive strength in rowing at the Under-23 category."
-            tiles={card1Tiles}
+            tiles={cardTiles}
             visible={visible[2]}
             delay={360}
 />
@@ -250,7 +250,7 @@ const Sports = () => {
             achievement="Participation "
             achievementColor="#3b82f6"
             description="Representing at the national level in rowing has been a defining experience, teaching me invaluable lessons that extend beyond the sport."
-            tiles={card1Tiles}
+            tiles={cardTiles}
             visible={visible[0]}
             delay={0}
           />
@@ -264,7 +264,7 @@ const Sports = () => {
             achievement="Multiple Medals & Trophies"
             achievementColor="#f59e0b"
             description="Won various medals and trophies across multiple sports events at the inter-collegiate level, demonstrating versatility, competitive spirit, and dedication to athletic excellence."
-            tiles={card2Tiles}
+            tiles={cardTiles}
             visible={visible[1]}
             delay={180}
           />
