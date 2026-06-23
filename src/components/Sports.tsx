@@ -209,7 +209,7 @@ const SportsCard = ({
 
 // ── Main Component ────────────────────────────────────────────────────────────
 const Sports = () => {
-  const { ref, visible } = useStaggerFade(1);
+  const { ref, visible } = useStaggerFade(3);
 
   const cardTiles = [
     { icon: Waves,          title: "Indoor Rowing", subtitle: "Ergometer sport",  color: "#3b82f6" },
@@ -233,11 +233,11 @@ const Sports = () => {
             badge="STATE LEVEL"
             badgeBg="rgba(205,127,50,0.1)"
             icon={Medal}
-            title="1st Maharashtra Under-23 State Rowing Championship"
+            title="1st Maharashtra Under-23 State Rowing Championship 2026"
             achievement="🥉 Bronze Medal"
             achievementColor="#cd7f32"
             description="Secured a bronze medal at the state-level championship, showcasing consistent performance and competitive strength in rowing at the Under-23 category."
-            tiles={cardTiles}
+            tiles={[]}
             visible={visible[2]}
             delay={360}
 />
@@ -246,11 +246,11 @@ const Sports = () => {
             badge="NATIONAL LEVEL"
             badgeBg="rgba(59,130,246,0.1)"
             icon={Medal}
-            title="All India University National Rowing Championship"
+            title="All India University National Rowing Championship 2025,2026"
             achievement="Participation "
             achievementColor="#3b82f6"
             description="Representing at the national level in rowing has been a defining experience, teaching me invaluable lessons that extend beyond the sport."
-            tiles={cardTiles}
+            tiles={[]}
             visible={visible[0]}
             delay={0}
           />

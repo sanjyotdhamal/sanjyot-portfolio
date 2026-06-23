@@ -10,6 +10,12 @@ import genAiCert from "@/assets/generative-ai-certificate.png";
 import pythonCert from "@/assets/python-cert.png";
 import softwaretest from "@/assets/software-testing.png";
 import CTcert from "@/assets/CT-cert.png";
+import googleAIessentials from "@/assets/google-ai-essentials.png";
+import introtocyber from "@/assets/Intro-to-cyber.png";
+import AWSacademy from "@/assets/AWS-academy.png";
+import Claudecode from "@/assets/Claude-Code.png";
+
+
 
 interface CertItem {
   name: string;
@@ -121,6 +127,12 @@ const Certifications = () => {
     { name: "Python Programming – Reliance Foundation Skilling Academy", image: pythonCert, color: "#06b6d4" },
     { name: "Foundations of Software Testing and Validation", image: softwaretest, color: "#d406bc" },
     { name: "Computational Thinking for Problem Solving", image: CTcert, color: "#f50b0b" },
+    { name: "Google AI Essentials", image: googleAIessentials, color: "#80f50b" },
+    { name: "Introduction to Cyber Security", image: introtocyber, color: "#b70bf5" },
+    { name: "AWS Academy", image: AWSacademy, color: "#e91d1d" },
+    { name: "Claude Code in Action by Anthropic", image: Claudecode, color: "#096e2e5b" },
+
+
   ];
 
   const row1 = [...certifications.slice(0, 3), ...certifications.slice(0, 3), ...certifications.slice(0, 3)];

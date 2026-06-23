@@ -223,7 +223,7 @@ const About = () => {
             {[
               <>Currently pursuing <strong>B.Tech in Computer Science Engineering</strong> at MIT ADT University, Pune — with a deep interest in Artificial Intelligence, Machine Learning, and Data Analysis.</>,
               <>I believe in hands-on learning and have gained practical experience through <strong>internships, projects, hackathons</strong>, and industry-recognized certifications. My approach combines theoretical understanding with real-world application.</>,
-              <>Beyond academics, I represented MIT ADT University at the <strong>All India University level in rowing</strong> — an experience that taught me discipline, consistency, and teamwork which I apply in everything I do.</>,
+              <>Beyond academics, I represented MIT ADT University at the <strong>All India University level in rowing 2025,2026</strong> — an experience that taught me discipline, consistency, and teamwork which I apply in everything I do.</>,
             ].map((text, i) => (
               <p
                 key={i}
