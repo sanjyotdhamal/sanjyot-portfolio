@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import SectionParallax from "@/components/SectionParallax"; // ← add this line
-// import { useEffect, useRef, useState } from "react";
+import SectionParallax from "@/components/SectionParallax";
+import { GitHubCalendar } from "react-github-calendar";
 
 // ── Scroll visibility hook ────────────────────────────────────────────────────
 const useInView = () => {
@@ -19,84 +19,46 @@ const useInView = () => {
 
 // ── Stat Card ─────────────────────────────────────────────────────────────────
 const StatCard = ({
-  icon,
-  value,
-  label,
-  color,
-  bgColor,
-  borderColor,
-  visible,
-  delay,
+  icon, value, label, color, bgColor, borderColor, visible, delay,
 }: {
-  icon: React.ReactNode;
-  value: React.ReactNode;
-  label: string;
-  color: string;
-  bgColor: string;
-  borderColor: string;
-  visible: boolean;
-  delay: number;
+  icon: React.ReactNode; value: React.ReactNode; label: string;
+  color: string; bgColor: string; borderColor: string; visible: boolean; delay: number;
 }) => {
   const [hovered, setHovered] = useState(false);
-
   return (
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
         opacity: visible ? 1 : 0,
-        transform: visible
-          ? hovered ? "translateX(6px)" : "translateX(0px)"
-          : "translateX(30px)",
+        transform: visible ? hovered ? "translateX(6px)" : "translateX(0px)" : "translateX(30px)",
         transition: `opacity 0.6s ease ${delay}ms, transform 0.3s ease`,
         background: "var(--background)",
         border: `0.5px solid ${hovered ? borderColor : "var(--border, rgba(0,0,0,0.1))"}`,
-        borderRadius: "14px",
-        padding: "14px 16px",
-        display: "flex",
-        alignItems: "center",
-        gap: "14px",
-        position: "relative",
-        overflow: "hidden",
+        borderRadius: "14px", padding: "14px 16px",
+        display: "flex", alignItems: "center", gap: "14px",
+        position: "relative", overflow: "hidden",
         boxShadow: hovered ? `0 6px 20px ${color}18` : "none",
       }}
     >
-      {/* Left accent bar */}
       <div style={{
-        position: "absolute", left: 0, top: 0, bottom: 0,
-        width: "3px",
-        background: color,
-        borderRadius: "3px 0 0 3px",
+        position: "absolute", left: 0, top: 0, bottom: 0, width: "3px",
+        background: color, borderRadius: "3px 0 0 3px",
         transform: hovered ? "scaleY(1)" : "scaleY(0.4)",
-        transformOrigin: "center",
-        transition: "transform 0.3s ease",
+        transformOrigin: "center", transition: "transform 0.3s ease",
       }} />
-
-      {/* Icon */}
       <div style={{
-        width: "44px", height: "44px", borderRadius: "12px",
-        background: bgColor,
-        display: "flex", alignItems: "center", justifyContent: "center",
-        flexShrink: 0,
-        transform: hovered ? "rotate(-6deg) scale(1.08)" : "scale(1)",
-        transition: "transform 0.3s ease",
+        width: "44px", height: "44px", borderRadius: "12px", background: bgColor,
+        display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+        transform: hovered ? "rotate(-6deg) scale(1.08)" : "scale(1)", transition: "transform 0.3s ease",
       }}>
         {icon}
       </div>
-
-      {/* Text */}
       <div>
-        <div style={{
-          fontSize: "22px", fontWeight: 700,
-          fontFamily: "'Playfair Display', serif",
-          color: color, lineHeight: 1,
-        }}>
+        <div style={{ fontSize: "22px", fontWeight: 700, fontFamily: "'Playfair Display', serif", color, lineHeight: 1 }}>
           {value}
         </div>
-        <div style={{
-          fontSize: "11px", color: "var(--muted-foreground, #888)",
-          marginTop: "3px", lineHeight: 1.4,
-        }}>
+        <div style={{ fontSize: "11px", color: "var(--muted-foreground, #888)", marginTop: "3px", lineHeight: 1.4 }}>
           {label}
         </div>
       </div>
@@ -108,6 +70,7 @@ const StatCard = ({
 const About = () => {
   const { ref: textRef, inView: textVisible } = useInView();
   const { ref: statsRef, inView: statsVisible } = useInView();
+  const [graphHovered, setGraphHovered] = useState(false);
 
   const stats = [
     {
@@ -176,17 +139,17 @@ const About = () => {
   ];
 
   const tags = [
-    { label: "AI & ML",      bg: "#E6F1FB", color: "#185FA5", border: "#B5D4F4" },
-    { label: "Blockchain",   bg: "#EEEDFE", color: "#534AB7", border: "#CECBF6" },
-    { label: "Data Science", bg: "#E1F5EE", color: "#0F6E56", border: "#9FE1CB" },
-    { label: "IoT",          bg: "#FAEEDA", color: "#854F0B", border: "#FAC775" },
-     { label: "Web Development",bg: "#fadada", color: "#850b0b", border: "#ff8c88" },
-    { label: "Rowing",       bg: "#FBEAF0", color: "#993556", border: "#F4C0D1" },
+    { label: "AI & ML",        bg: "#E6F1FB", color: "#185FA5", border: "#B5D4F4" },
+    { label: "Blockchain",     bg: "#EEEDFE", color: "#534AB7", border: "#CECBF6" },
+    { label: "Data Science",   bg: "#E1F5EE", color: "#0F6E56", border: "#9FE1CB" },
+    { label: "IoT",            bg: "#FAEEDA", color: "#854F0B", border: "#FAC775" },
+    { label: "Web Development",bg: "#fadada", color: "#850b0b", border: "#ff8c88" },
+    { label: "Rowing",         bg: "#FBEAF0", color: "#993556", border: "#F4C0D1" },
   ];
 
   return (
     <section id="about" className="section-padding bg-secondary/30" style={{ position: "relative" }}>
-  <SectionParallax color1="59,130,246" color2="139,92,246" />
+      <SectionParallax color1="59,130,246" color2="139,92,246" />
       <div className="section-container relative z-10">
         <p className="section-title">About Me</p>
 
@@ -199,23 +162,19 @@ const About = () => {
               style={{
                 fontFamily: "'Playfair Display', serif",
                 fontSize: "clamp(28px, 4vw, 38px)",
-                fontWeight: 700,
-                lineHeight: 1.15,
+                fontWeight: 700, lineHeight: 1.15,
                 opacity: textVisible ? 1 : 0,
                 transform: textVisible ? "translateY(0)" : "translateY(20px)",
                 transition: "opacity 0.6s ease, transform 0.6s ease",
               }}
             >
-              Passionate about building intelligent solution{" "}
-        
+              Passionate about building intelligent solutions
             </h2>
 
-            {/* Gradient divider */}
             <div style={{
               width: "48px", height: "3px",
               background: "linear-gradient(90deg, #3b82f6, #8b5cf6)",
-              borderRadius: "2px",
-              margin: "1.5rem 0 2rem",
+              borderRadius: "2px", margin: "1.5rem 0 2rem",
               opacity: textVisible ? 1 : 0,
               transition: "opacity 0.6s ease 0.2s",
             }} />
@@ -223,11 +182,9 @@ const About = () => {
             {[
               <>Currently pursuing <strong>B.Tech in Computer Science Engineering</strong> at MIT ADT University, Pune — with a deep interest in Artificial Intelligence, Machine Learning, and Data Analysis.</>,
               <>I believe in hands-on learning and have gained practical experience through <strong>internships, projects, hackathons</strong>, and industry-recognized certifications. My approach combines theoretical understanding with real-world application.</>,
-              <>Beyond academics, I represented MIT ADT University at the <strong>All India University level in rowing 2025,2026</strong> — an experience that taught me discipline, consistency, and teamwork which I apply in everything I do.</>,
+              <>Beyond academics, I represented MIT ADT University at the <strong>All India University level in rowing 2025, 2026</strong> — an experience that taught me discipline, consistency, and teamwork which I apply in everything I do.</>,
             ].map((text, i) => (
-              <p
-                key={i}
-                className="text-muted-foreground leading-relaxed mb-4"
+              <p key={i} className="text-muted-foreground leading-relaxed mb-4"
                 style={{
                   fontSize: "15px",
                   opacity: textVisible ? 1 : 0,
@@ -240,17 +197,11 @@ const About = () => {
             ))}
 
             {/* Hackathon highlight box */}
-            <div
-              style={{
-                background: "rgba(59,130,246,0.06)",
-                borderRadius: "12px",
-                padding: "1rem 1.25rem",
-                borderLeft: "3px solid #3b82f6",
-                marginTop: "1.5rem",
-                opacity: textVisible ? 1 : 0,
-                transition: "opacity 0.6s ease 0.55s",
-              }}
-            >
+            <div style={{
+              background: "rgba(59,130,246,0.06)", borderRadius: "12px",
+              padding: "1rem 1.25rem", borderLeft: "3px solid #3b82f6", marginTop: "1.5rem",
+              opacity: textVisible ? 1 : 0, transition: "opacity 0.6s ease 0.55s",
+            }}>
               <p className="text-muted-foreground" style={{ fontSize: "13px", lineHeight: 1.7, margin: 0 }}>
                 <span style={{ color: "#3b82f6", fontWeight: 600 }}>Smart India Hackathon 2025</span> — Ranked{" "}
                 <span style={{ color: "#3b82f6", fontWeight: 600 }}>44th out of 200</span> software teams and{" "}
@@ -259,30 +210,23 @@ const About = () => {
             </div>
 
             {/* Tags */}
-            <div
-              className="flex flex-wrap gap-2 mt-5"
-              style={{
-                opacity: textVisible ? 1 : 0,
-                transition: "opacity 0.6s ease 0.65s",
-              }}
+            <div className="flex flex-wrap gap-2 mt-5"
+              style={{ opacity: textVisible ? 1 : 0, transition: "opacity 0.6s ease 0.65s" }}
             >
               {tags.map((tag, i) => (
-                <span
-                  key={i}
-                  style={{
-                    fontSize: "12px", padding: "5px 12px",
-                    borderRadius: "20px", fontWeight: 500,
-                    background: tag.bg, color: tag.color,
-                    border: `0.5px solid ${tag.border}`,
-                  }}
-                >
+                <span key={i} style={{
+                  fontSize: "12px", padding: "5px 12px",
+                  borderRadius: "20px", fontWeight: 500,
+                  background: tag.bg, color: tag.color,
+                  border: `0.5px solid ${tag.border}`,
+                }}>
                   {tag.label}
                 </span>
               ))}
             </div>
           </div>
 
-          {/* ── Right — stat cards ── */}
+          {/* ── Right — stat cards + GitHub Calendar ── */}
           <div ref={statsRef} className="flex flex-col gap-3">
             {stats.map((stat, i) => (
               <StatCard
@@ -297,6 +241,72 @@ const About = () => {
                 delay={i * 120}
               />
             ))}
+
+            {/* ── GitHub Calendar Graph ── */}
+            <div
+              onMouseEnter={() => setGraphHovered(true)}
+              onMouseLeave={() => setGraphHovered(false)}
+              style={{
+                opacity: statsVisible ? 1 : 0,
+                transform: statsVisible ? "translateY(0px)" : "translateY(24px)",
+                transition: "opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s, border-color 0.3s ease, box-shadow 0.3s ease",
+                background: "var(--background)",
+                border: `0.5px solid ${graphHovered ? "rgba(59,130,246,0.4)" : "var(--border, rgba(0,0,0,0.1))"}`,
+                borderRadius: "16px",
+                padding: "20px",
+                position: "relative",
+                overflow: "hidden",
+                boxShadow: graphHovered ? "0 6px 20px rgba(59,130,246,0.12)" : "none",
+              }}
+            >
+              {/* Left accent bar */}
+              <div style={{
+                position: "absolute", left: 0, top: 0, bottom: 0, width: "3px",
+                background: "linear-gradient(to bottom, #3b82f6, #8b5cf6)",
+                borderRadius: "3px 0 0 3px",
+                transform: graphHovered ? "scaleY(1)" : "scaleY(0.4)",
+                transformOrigin: "center", transition: "transform 0.3s ease",
+              }} />
+
+              {/* Header */}
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "16px" }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                </svg>
+                <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--foreground)" }}>
+                  GitHub Contributions
+                </span>
+                <span style={{
+                  fontSize: "10px", padding: "2px 8px", borderRadius: "20px",
+                  background: "rgba(59,130,246,0.1)", color: "#3b82f6",
+                  border: "0.5px solid rgba(59,130,246,0.3)", fontWeight: 500,
+                }}>
+                  LIVE
+                </span>
+              </div>
+
+              {/* ✅ Real GitHub green square calendar */}
+              <div style={{ overflowX: "auto" }}>
+                <GitHubCalendar
+                  username="sanjyotdhamal"
+                  colorScheme="light"
+                  fontSize={11}
+                  blockSize={10}
+                  blockMargin={3}
+                  showWeekdayLabels={true}
+                />
+              </div>
+
+              <p style={{
+                fontSize: "11px", color: "var(--muted-foreground)",
+                marginTop: "12px", textAlign: "right",
+              }}>
+                <a href="https://github.com/sanjyotdhamal" target="_blank" rel="noopener noreferrer"
+                  style={{ color: "#3b82f6", textDecoration: "none" }}>
+                  View GitHub profile →
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       </div>

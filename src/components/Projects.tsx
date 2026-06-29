@@ -342,7 +342,7 @@ detail: {
   } as ProjectDetail,
 },
     {
-     title: "Subsi-Chain: Subsidy Distribution Tracker",
+    title: "Subsi-Chain: Subsidy Distribution Tracker",
       icon: Layers,
       technologies: ["Blockchain", "Web Application", "React.js", "Node.js", "MongoDB"],
       year: "2025",
