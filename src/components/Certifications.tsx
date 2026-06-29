@@ -135,8 +135,8 @@ const Certifications = () => {
 
   ];
 
-  const row1 = [...certifications.slice(0, 3), ...certifications.slice(0, 3), ...certifications.slice(0, 3)];
-  const row2 = [...certifications.slice(3),    ...certifications.slice(3),    ...certifications.slice(3)];
+  const row1 = [...certifications.slice(3), ...certifications.slice(3), ...certifications.slice(3)];
+  const row2 = [...certifications.slice(3),...certifications.slice(3),...certifications.slice(3)];
 
   const pause  = (ref: React.RefObject<HTMLDivElement>) => { if (ref.current) ref.current.style.animationPlayState = "paused";  };
   const resume = (ref: React.RefObject<HTMLDivElement>) => { if (ref.current) ref.current.style.animationPlayState = "running"; };
