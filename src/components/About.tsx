@@ -66,11 +66,115 @@ const StatCard = ({
   );
 };
 
+// ── GitHub Calendar Card with Year Selector ───────────────────────────────────
+const GitHubGraphCard = ({ visible }: { visible: boolean }) => {
+  const [hovered, setHovered] = useState(false);
+  const currentYear = new Date().getFullYear();
+  const [selectedYear, setSelectedYear] = useState<number>(currentYear);
+  const years = [currentYear, currentYear - 1, currentYear - 2, currentYear - 3];
+
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0px)" : "translateY(24px)",
+        transition: "opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s, border-color 0.3s ease, box-shadow 0.3s ease",
+        background: "var(--background)",
+        border: `0.5px solid ${hovered ? "rgba(59,130,246,0.4)" : "var(--border, rgba(0,0,0,0.1))"}`,
+        borderRadius: "16px",
+        padding: "20px",
+        position: "relative",
+        overflow: "hidden",
+        boxShadow: hovered ? "0 6px 20px rgba(59,130,246,0.12)" : "none",
+      }}
+    >
+      {/* Left accent bar */}
+      <div style={{
+        position: "absolute", left: 0, top: 0, bottom: 0, width: "3px",
+        background: "linear-gradient(to bottom, #3b82f6, #8b5cf6)",
+        borderRadius: "3px 0 0 3px",
+        transform: hovered ? "scaleY(1)" : "scaleY(0.4)",
+        transformOrigin: "center", transition: "transform 0.3s ease",
+      }} />
+
+      {/* Header row — title left, year selector right */}
+      <div style={{
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        marginBottom: "16px", flexWrap: "wrap", gap: "10px",
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+          </svg>
+          <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--foreground)" }}>
+            GitHub Contributions
+          </span>
+        </div>
+
+        {/* Year selector pill group */}
+        <div style={{
+          display: "flex", gap: "2px",
+          background: "var(--secondary, rgba(0,0,0,0.05))",
+          borderRadius: "99px", padding: "3px",
+        }}>
+          {years.map((year) => {
+            const isSelected = selectedYear === year;
+            return (
+              <button
+                key={year}
+                onClick={() => setSelectedYear(year)}
+                style={{
+                  fontSize: "11px",
+                  fontWeight: isSelected ? 600 : 500,
+                  padding: "5px 12px",
+                  borderRadius: "99px",
+                  border: "none",
+                  cursor: "pointer",
+                  background: isSelected ? "var(--background)" : "transparent",
+                  color: isSelected ? "#3b82f6" : "var(--muted-foreground)",
+                  boxShadow: isSelected ? "0 1px 4px rgba(0,0,0,0.1)" : "none",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                {year}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* GitHub calendar grid */}
+      <div style={{ overflowX: "auto" }}>
+        <GitHubCalendar
+          username="sanjyotdhamal"
+          year={selectedYear}
+          colorScheme="light"
+          fontSize={11}
+          blockSize={10}
+          blockMargin={3}
+          showWeekdayLabels={true}
+        />
+      </div>
+
+      <p style={{
+        fontSize: "11px", color: "var(--muted-foreground)",
+        marginTop: "12px", textAlign: "right",
+      }}>
+        <a href="https://github.com/sanjyotdhamal" target="_blank" rel="noopener noreferrer"
+          style={{ color: "#3b82f6", textDecoration: "none" }}>
+          View GitHub profile →
+        </a>
+      </p>
+    </div>
+  );
+};
+
 // ── Main Component ────────────────────────────────────────────────────────────
 const About = () => {
   const { ref: textRef, inView: textVisible } = useInView();
   const { ref: statsRef, inView: statsVisible } = useInView();
-  const [graphHovered, setGraphHovered] = useState(false);
 
   const stats = [
     {
@@ -226,7 +330,7 @@ const About = () => {
             </div>
           </div>
 
-          {/* ── Right — stat cards + GitHub Calendar ── */}
+          {/* ── Right — stat cards + GitHub graph ── */}
           <div ref={statsRef} className="flex flex-col gap-3">
             {stats.map((stat, i) => (
               <StatCard
@@ -242,71 +346,8 @@ const About = () => {
               />
             ))}
 
-            {/* ── GitHub Calendar Graph ── */}
-            <div
-              onMouseEnter={() => setGraphHovered(true)}
-              onMouseLeave={() => setGraphHovered(false)}
-              style={{
-                opacity: statsVisible ? 1 : 0,
-                transform: statsVisible ? "translateY(0px)" : "translateY(24px)",
-                transition: "opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s, border-color 0.3s ease, box-shadow 0.3s ease",
-                background: "var(--background)",
-                border: `0.5px solid ${graphHovered ? "rgba(59,130,246,0.4)" : "var(--border, rgba(0,0,0,0.1))"}`,
-                borderRadius: "16px",
-                padding: "20px",
-                position: "relative",
-                overflow: "hidden",
-                boxShadow: graphHovered ? "0 6px 20px rgba(59,130,246,0.12)" : "none",
-              }}
-            >
-              {/* Left accent bar */}
-              <div style={{
-                position: "absolute", left: 0, top: 0, bottom: 0, width: "3px",
-                background: "linear-gradient(to bottom, #3b82f6, #8b5cf6)",
-                borderRadius: "3px 0 0 3px",
-                transform: graphHovered ? "scaleY(1)" : "scaleY(0.4)",
-                transformOrigin: "center", transition: "transform 0.3s ease",
-              }} />
-
-              {/* Header */}
-              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "16px" }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round">
-                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                </svg>
-                <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--foreground)" }}>
-                  GitHub Contributions
-                </span>
-                <span style={{
-                  fontSize: "10px", padding: "2px 8px", borderRadius: "20px",
-                  background: "rgba(59,130,246,0.1)", color: "#3b82f6",
-                  border: "0.5px solid rgba(59,130,246,0.3)", fontWeight: 500,
-                }}>
-                  LIVE
-                </span>
-              </div>
-
-              {/* ✅ Real GitHub green square calendar */}
-              <div style={{ overflowX: "auto" }}>
-                <GitHubCalendar
-                  username="sanjyotdhamal"
-                  colorScheme="light"
-                  fontSize={11}
-                  blockSize={10}
-                  blockMargin={3}
-                  showWeekdayLabels={true}
-                />
-              </div>
-
-              <p style={{
-                fontSize: "11px", color: "var(--muted-foreground)",
-                marginTop: "12px", textAlign: "right",
-              }}>
-                <a href="https://github.com/sanjyotdhamal" target="_blank" rel="noopener noreferrer"
-                  style={{ color: "#3b82f6", textDecoration: "none" }}>
-                  View GitHub profile →
-                </a>
-              </p>
-            </div>
+            {/* GitHub Calendar with year selector */}
+            <GitHubGraphCard visible={statsVisible} />
           </div>
         </div>
       </div>
