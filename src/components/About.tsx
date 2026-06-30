@@ -1,6 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SectionParallax from "@/components/SectionParallax";
 import { GitHubCalendar } from "react-github-calendar";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
+import { useTheme } from "@/components/theme-provider";
 
 // ── Scroll visibility hook ────────────────────────────────────────────────────
 const useInView = () => {
@@ -25,6 +28,7 @@ const StatCard = ({
   color: string; bgColor: string; borderColor: string; visible: boolean; delay: number;
 }) => {
   const [hovered, setHovered] = useState(false);
+  const { theme } = useTheme();
   return (
     <div
       onMouseEnter={() => setHovered(true)}
@@ -66,12 +70,25 @@ const StatCard = ({
   );
 };
 
-// ── GitHub Calendar Card with Year Selector ───────────────────────────────────
+// ── GitHub Calendar Card with Dropdown Year Selector + Tooltips ───────────────
 const GitHubGraphCard = ({ visible }: { visible: boolean }) => {
   const [hovered, setHovered] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { theme } = useTheme();
   const currentYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = useState<number>(currentYear);
   const years = [currentYear, currentYear - 1, currentYear - 2, currentYear - 3];
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <div
@@ -82,24 +99,22 @@ const GitHubGraphCard = ({ visible }: { visible: boolean }) => {
         transform: visible ? "translateY(0px)" : "translateY(24px)",
         transition: "opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s, border-color 0.3s ease, box-shadow 0.3s ease",
         background: "var(--background)",
-        border: `0.5px solid ${hovered ? "rgba(59,130,246,0.4)" : "var(--border, rgba(0,0,0,0.1))"}`,
+        border: `0.5px solid ${hovered ? "rgb(157, 249, 141)" : "var(--border, rgba(157, 249, 141))"}`,
         borderRadius: "16px",
         padding: "20px",
         position: "relative",
-        overflow: "hidden",
+        overflow: "visible",
         boxShadow: hovered ? "0 6px 20px rgba(59,130,246,0.12)" : "none",
       }}
     >
-      {/* Left accent bar */}
       <div style={{
         position: "absolute", left: 0, top: 0, bottom: 0, width: "3px",
-        background: "linear-gradient(to bottom, #3b82f6, #8b5cf6)",
+        background: "linear-gradient(to bottom, #67f63b, #67f63b)",
         borderRadius: "3px 0 0 3px",
         transform: hovered ? "scaleY(1)" : "scaleY(0.4)",
         transformOrigin: "center", transition: "transform 0.3s ease",
       }} />
 
-      {/* Header row — title left, year selector right */}
       <div style={{
         display: "flex", alignItems: "center", justifyContent: "space-between",
         marginBottom: "16px", flexWrap: "wrap", gap: "10px",
@@ -108,55 +123,113 @@ const GitHubGraphCard = ({ visible }: { visible: boolean }) => {
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round">
             <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
           </svg>
-          <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--foreground)" }}>
+          <span style={{ fontSize: "13px", fontWeight: 600, color: theme === "dark" ? "#e6edf3" : "var(--foreground)" }}>
             GitHub Contributions
           </span>
         </div>
 
-        {/* Year selector pill group */}
-        <div style={{
-          display: "flex", gap: "2px",
-          background: "var(--secondary, rgba(0,0,0,0.05))",
-          borderRadius: "99px", padding: "3px",
-        }}>
-          {years.map((year) => {
-            const isSelected = selectedYear === year;
-            return (
-              <button
-                key={year}
-                onClick={() => setSelectedYear(year)}
-                style={{
-                  fontSize: "11px",
-                  fontWeight: isSelected ? 600 : 500,
-                  padding: "5px 12px",
-                  borderRadius: "99px",
-                  border: "none",
-                  cursor: "pointer",
-                  background: isSelected ? "var(--background)" : "transparent",
-                  color: isSelected ? "#3b82f6" : "var(--muted-foreground)",
-                  boxShadow: isSelected ? "0 1px 4px rgba(0,0,0,0.1)" : "none",
-                  transition: "all 0.2s ease",
-                }}
-              >
-                {year}
-              </button>
-            );
-          })}
+        {/* Dropdown year selector */}
+        <div ref={dropdownRef} style={{ position: "relative" }}>
+          <button
+            onClick={() => setDropdownOpen((p) => !p)}
+            style={{
+              display: "flex", alignItems: "center", gap: "6px",
+              fontSize: "12px", fontWeight: 600,
+              padding: "6px 12px", borderRadius: "8px",
+              background: "var(--secondary, rgba(0,0,0,0.05))",
+              border: `1px solid ${dropdownOpen ? "#3b82f6" : "var(--border, rgba(0,0,0,0.1))"}`,
+              color: "var(--foreground)",
+              cursor: "pointer",
+              transition: "border-color 0.2s ease",
+            }}
+          >
+            {selectedYear}
+            <svg
+              width="12" height="12" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+              style={{
+                transform: dropdownOpen ? "rotate(180deg)" : "rotate(0deg)",
+                transition: "transform 0.25s ease",
+              }}
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+
+          <div
+  style={{
+    position: "absolute", top: "calc(100% + 6px)", right: 0,
+backgroundColor: theme === "dark" ? "#0d1117" : "#ffffff",    border: "1px solid #e5e7eb",
+    borderRadius: "10px",
+    boxShadow: "0 12px 32px rgba(0,0,0,0.25)",
+    minWidth: "110px",
+    overflow: "hidden",
+    zIndex: 9999,
+    opacity: dropdownOpen ? 1 : 0,
+    transform: dropdownOpen ? "translateY(0px) scale(1)" : "translateY(-8px) scale(0.96)",
+    pointerEvents: dropdownOpen ? "auto" : "none",
+    transition: "opacity 0.2s ease, transform 0.2s ease",
+    transformOrigin: "top right",
+  }}
+>
+            {years.map((year) => {
+              const isSelected = selectedYear === year;
+              return (
+                <button
+                  key={year}
+                  onClick={() => { setSelectedYear(year); setDropdownOpen(false); }}
+                  style={{
+                    display: "block", width: "100%", textAlign: "left",
+                    fontSize: "13px", fontWeight: isSelected ? 600 : 400,
+                    padding: "9px 14px",
+                    background: isSelected ? "rgba(59,130,246,0.08)" : "transparent",
+                    color: isSelected ? "#3b82f6" : "var(--foreground)",
+                    border: "none", cursor: "pointer",
+                    transition: "background 0.15s ease",
+                  }}
+                  onMouseEnter={(e) => { if (!isSelected) (e.currentTarget as HTMLElement).style.background = "var(--secondary, rgba(0,0,0,0.04))"; }}
+                  onMouseLeave={(e) => { if (!isSelected) (e.currentTarget as HTMLElement).style.background = "transparent"; }}
+                >
+                  {year}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 
-      {/* GitHub calendar grid */}
+      {/* GitHub calendar grid with hover tooltips */}
       <div style={{ overflowX: "auto" }}>
         <GitHubCalendar
           username="sanjyotdhamal"
           year={selectedYear}
-          colorScheme="light"
+          colorScheme={theme === "dark" ? "dark" : "light"}
           fontSize={11}
           blockSize={10}
           blockMargin={3}
           showWeekdayLabels={true}
+          renderBlock={(block, activity) =>
+            React.cloneElement(block, {
+              "data-tooltip-id": "github-tooltip",
+              "data-tooltip-content": `${activity.count} contribution${activity.count !== 1 ? "s" : ""} on ${new Date(activity.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`,
+            })
+          }
         />
       </div>
+
+      <Tooltip
+  id="github-tooltip"
+  style={{
+    fontSize: "10px",
+    fontWeight: 500,
+    padding: "2px 6px",
+    borderRadius: "6px",
+    backgroundColor: "#1f2937",
+    color: "#ffffff",
+    zIndex: 9999,
+    opacity: 1,
+  }}
+/>
 
       <p style={{
         fontSize: "11px", color: "var(--muted-foreground)",
@@ -300,7 +373,6 @@ const About = () => {
               </p>
             ))}
 
-            {/* Hackathon highlight box */}
             <div style={{
               background: "rgba(59,130,246,0.06)", borderRadius: "12px",
               padding: "1rem 1.25rem", borderLeft: "3px solid #3b82f6", marginTop: "1.5rem",
@@ -313,7 +385,6 @@ const About = () => {
               </p>
             </div>
 
-            {/* Tags */}
             <div className="flex flex-wrap gap-2 mt-5"
               style={{ opacity: textVisible ? 1 : 0, transition: "opacity 0.6s ease 0.65s" }}
             >
@@ -346,15 +417,34 @@ const About = () => {
               />
             ))}
 
-            {/* GitHub Calendar with year selector */}
             <GitHubGraphCard visible={statsVisible} />
           </div>
         </div>
       </div>
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
-      `}</style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+
+  /* Thinner scrollbar for GitHub calendar */
+  .react-activity-calendar__scroll-container::-webkit-scrollbar {
+    height: 6px;
+  }
+  .react-activity-calendar__scroll-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .react-activity-calendar__scroll-container::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 10px;
+  }
+
+  /* Dark mode scrollbar */
+  .dark .react-activity-calendar__scroll-container::-webkit-scrollbar-thumb {
+    background: #4b5563;
+  }
+  .dark .react-activity-calendar__scroll-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+`}</style>
     </section>
   );
 };
