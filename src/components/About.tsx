@@ -103,24 +103,24 @@ const GitHubGraphCard = ({ visible }: { visible: boolean }) => {
         borderRadius: "16px",
         padding: "20px",
         position: "relative",
-        overflow: "visible",
-        boxShadow: hovered ? "0 6px 20px rgba(59,130,246,0.12)" : "none",
+overflow: dropdownOpen ? "visible" : "hidden",
+boxShadow: hovered ? "0 6px 20px rgba(59,130,246,0.12)" : "none",
       }}
     >
       <div style={{
-        position: "absolute", left: 0, top: 0, bottom: 0, width: "3px",
-        background: "linear-gradient(to bottom, #67f63b, #67f63b)",
-        borderRadius: "3px 0 0 3px",
-        transform: hovered ? "scaleY(1)" : "scaleY(0.4)",
-        transformOrigin: "center", transition: "transform 0.3s ease",
-      }} />
+  position: "absolute", left:0, top:0, bottom:0, width: "3px",
+  background: "linear-gradient(to bottom, #3bfd00, #a4f18d)",
+  borderRadius: "3px",
+  transform: hovered ? "scaleY(1)" : "scaleY(0.4)",
+  transformOrigin: "center", transition: "transform 0.3s ease",
+}} />
 
       <div style={{
         display: "flex", alignItems: "center", justifyContent: "space-between",
         marginBottom: "16px", flexWrap: "wrap", gap: "10px",
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#289b05" strokeWidth="2" strokeLinecap="round">
             <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
           </svg>
           <span style={{ fontSize: "13px", fontWeight: 600, color: theme === "dark" ? "#e6edf3" : "var(--foreground)" }}>
@@ -236,7 +236,7 @@ backgroundColor: theme === "dark" ? "#0d1117" : "#ffffff",    border: "1px solid
         marginTop: "12px", textAlign: "right",
       }}>
         <a href="https://github.com/sanjyotdhamal" target="_blank" rel="noopener noreferrer"
-          style={{ color: "#3b82f6", textDecoration: "none" }}>
+          style={{ color: "#289b05", textDecoration: "none" }}>
           View GitHub profile →
         </a>
       </p>
