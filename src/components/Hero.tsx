@@ -70,8 +70,13 @@ const ParticlesBackground = () => {
 };
 
 // ── Typing Animation ──────────────────────────────────────────────────────────
-const roles = ["AI & ML Enthusiast", "Web Developer", "Blockchain Builder", "Data Science Explorer", "Athlete & Team Player"];
-const TypingText = () => {
+const roles = [
+  "Aspiring Data Analyst",
+  "AI & ML Enthusiast",
+  "Web Developer",
+  "Problem Solver",
+  "Student Athlete"
+];const TypingText = () => {
   const [displayed, setDisplayed] = useState("");
   const [roleIndex, setRoleIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
@@ -236,8 +241,7 @@ const Hero = () => {
             <div style={fadeUp(v2)}><TypingText /></div>
             <div style={fadeUp(v3)}>
               <p className="text-muted-foreground leading-relaxed mb-8 max-w-lg" style={{ fontSize: "15px" }}>
-                Computer Science Engineering student with strong interest in Artificial Intelligence and Machine Learning. Experienced in building data-driven applications, blockchain-based systems, and practical ML solutions.
-              </p>
+Computer Science Engineering student with a strong interest in Data Analytics, Artificial Intelligence, Machine Learning, and Web Development. Passionate about building data-driven applications, developing practical solutions, and continuously expanding my technical expertise through real-world projects.              </p>
             </div>
             <div style={{ ...fadeUp(v4), display: "flex", flexWrap: "wrap", gap: "12px" }}>
               <a href="#projects"
