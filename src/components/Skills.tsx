@@ -73,35 +73,20 @@ const Skills = () => {
   const skillCategories = [
     {
       title: "Programming Languages",
-      skills: ["Python", "Java", "SQL", "JavaScript", "HTML", "CSS"],
+      skills: ["Python", "SQL", "Java", "JavaScript", "HTML", "CSS"],
     },
     {
-      title: "Machine Learning & AI",
-      skills: [
-        "Machine Learning",
-        "Neural Networks",
-        "Scikit-learn",
-        "TensorFlow",
-        "Pandas",
-        "NumPy",
-        "Matplotlib",
-        "Seaborn",
-      ],
+      title: "Data analytics & AI/ML Libraries",
+      skills: ["Data Analysis","Machine Learning","Pandas","NumPy","Scikit-learn","Power BI","Tableau","Data Visualization"],
     },
     {
       title: "Tools & Technologies",
-      skills: [
-        "Git",
-        "Tableau",
-        "Google Cloud Platform",
-        "Jupyter Notebook",
-        "Power BI",
-        "VS Code",
-      ],
+      skills: ["Power BI", "Tableau", "GitHub", "Jupyter Notebook", "VS Code", "Google Cloud Platform"],
+
     },
     {
       title: "Core Skills",
-      skills: ["Data Analysis", "Problem Solving"],
+      skills: ["Data Analysis", "Problem Solving","Teamwork"],
     },
   ];
 
