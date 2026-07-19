@@ -10,10 +10,10 @@ import {
 
 type ProjectDetail = {
   overview: string;
-  features: string[];
-  techStack: string[];
-  impact: string[];
-  learned: string[];
+  features?: string[];
+  techStack?: string[];
+  impact?: string[];
+  learned?: string[];
   liveDemo?: string;
   github?: string;
   report?: string;
@@ -244,6 +244,65 @@ const Projects = () => {
 
   const projects = [
     {
+            title: "MIT-ADT Boat Club Website",
+icon: FileText,
+technologies: [  "Next.js","TypeScript","Tailwind CSS","Node.js","Express.js","MongoDB Atlas","Cloudinary",],
+year: "2026",
+description: [
+    "Official full-stack website for MIT-ADT Boat Club with public portal and secure admin dashboard",
+  "JWT-authenticated admin panel to manage news, athletes, events, results, and gallery content",
+  "Cloudinary image storage with MongoDB Atlas and Express.js REST API for dynamic content management",
+  "Frontend and backend fully developed and integrated for real-time club management",
+],
+detail: {
+  overview:"MIT-ADT Boat Club Website is a full-stack web application developed as the official digital platform for MIT-ADT Boat Club, Pune. The website enables the club to showcase achievements, manage athletes, publish news and events, display competition results, and streamline club membership through a secure JWT-authenticated admin dashboard. The platform features dynamic content management powered by Express.js, MongoDB Atlas, and Cloudinary for seamless media handling.",
+
+  features: [
+"Hero section with club overview and statistics",
+    "Latest News with featured system allowing admins to control the six homepage articles",
+    "Photo Gallery with slideshow, category filtering, and lightbox viewer",
+    "Athlete Profiles with medal tally and detailed profile popup",
+    "Results page with category tabs for State, National, AIU, VSM, and Intercollegiate competitions",
+    "Coaches and Boatmen profiles with complete information",
+    "Events page showcasing signature events and annual competitions",
+    "Achievements section including Best Sports Person Award and Athletes in Service",
+    "Join the Club form with WhatsApp integration",
+    "Secure Admin Dashboard with complete CRUD operations for News, Results, Athletes, Events, and Gallery",
+  ],
+  techStack: [
+    "Next.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "Framer Motion",
+    "Lucide React",
+    "Node.js",
+    "Express.js",
+    "MongoDB Atlas",
+    "Mongoose",
+    "Cloudinary",
+    "JWT Authentication",
+  ],
+  learned: [
+    "Full-stack development with Next.js and Express.js",
+    "MongoDB Atlas setup and Mongoose schema design",
+    "JWT authentication for secure admin access",
+    "Cloudinary integration for cloud-based image management",
+    "REST API development with protected routes",
+    "Responsive UI development using Tailwind CSS and Framer Motion",
+    "Migration strategy from localStorage to MongoDB",
+    "Next.js App Router and dynamic routing",
+  ],
+  impact: [
+    "Provided MIT-ADT Boat Club with a modern digital presence for public engagement",
+    "Streamlined club operations by centralizing athlete, event, and result management",
+    "Improved content publishing workflows for admins through a secure dashboard",
+  ],
+  liveDemo: "#",
+  github: "https://github.com/sanjyotdhamal/MIT-ADT-Boat-Club",
+  report: "#",
+} as ProjectDetail,
+},
+    {
       title: "R-Paper Formatter",
 icon: FileText,
 technologies: ["React.js", "FastAPI", "MongoDB", "Groq AI", "Python", "Tailwind CSS", "Node.js"],
@@ -255,7 +314,7 @@ description: [
 "Frontend complete — Backend under active development (FastAPI + MongoDB + Groq AI integration in progress)",
 ],
 detail: {
-  overview: "R-Paper Formatter is a full-stack web application that helps researchers and students format their raw research papers into professional IEEE, Springer, or any journal format. Users simply upload a PDF, select their desired format, and the AI-powered system extracts the content and generates a perfectly formatted Word document — maintaining exact fonts, spacing, and layout rules.",
+  overview:"R-Paper Formatter is a full-stack web application that helps researchers and students format their raw research papers into professional IEEE, Springer, or any journal format. Users simply upload a PDF, select their desired format, and the AI-powered system extracts the content and generates a perfectly formatted Word document — maintaining exact fonts, spacing, and layout rules.",
   features: [
     "PDF Upload with Drag & Drop support",
     "Conference Format Support — IEEE and Springer with exact formatting rules",
@@ -461,7 +520,7 @@ detail: {
                   <div>
                     <h4 className="text-sm font-semibold text-foreground mb-2">Key Features</h4>
                     <ul className="space-y-1 text-muted-foreground text-sm">
-                      {selected.detail.features.map((f, i) => (
+                      {(selected.detail.features ?? []).map((f, i) => (
                         <li key={i} className="flex items-start gap-2">
                           <span className="w-1 h-1 rounded-full bg-primary mt-2 flex-shrink-0" />
                           <span>{f}</span>
@@ -472,7 +531,7 @@ detail: {
                   <div>
                     <h4 className="text-sm font-semibold text-foreground mb-2">Tech Stack</h4>
                     <div className="flex flex-wrap gap-2">
-                      {selected.detail.techStack.map((tech, i) => (
+                      {(selected.detail.techStack ?? []).map((tech, i) => (
                         <span key={i} className="text-xs px-2 py-1 bg-background border border-border rounded text-muted-foreground">{tech}</span>
                       ))}
                     </div>
@@ -480,7 +539,7 @@ detail: {
                   <div>
                     <h4 className="text-sm font-semibold text-foreground mb-2">Impact</h4>
                     <ul className="space-y-1 text-muted-foreground text-sm">
-                      {selected.detail.impact.map((item, i) => (
+                      {(selected.detail.impact ?? []).map((item, i) => (
                         <li key={i} className="flex items-start gap-2">
                           <span className="w-1 h-1 rounded-full bg-primary mt-2 flex-shrink-0" />
                           <span>{item}</span>
@@ -491,7 +550,7 @@ detail: {
                   <div>
                     <h4 className="text-sm font-semibold text-foreground mb-2">What I Learned</h4>
                     <ul className="space-y-1 text-muted-foreground text-sm">
-                      {selected.detail.learned.map((item, i) => (
+                      {(selected.detail.learned ?? []).map((item, i) => (
                         <li key={i} className="flex items-start gap-2">
                           <span className="w-1 h-1 rounded-full bg-primary mt-2 flex-shrink-0" />
                           <span>{item}</span>
