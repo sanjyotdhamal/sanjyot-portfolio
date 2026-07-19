@@ -302,7 +302,7 @@ const About = () => {
     },
     {
       color: "#993556", bgColor: "#FBEAF0", borderColor: "#F4C0D1",
-      value: <>6<span style={{ fontSize: "14px" }}>+</span></>,
+      value: <>10<span style={{ fontSize: "14px" }}>+</span></>,
       label: "Industry certifications · IBM, Google, Coursera",
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#993556" strokeWidth="1.8" strokeLinecap="round">
@@ -316,13 +316,13 @@ const About = () => {
   ];
 
   const tags = [
-    { label: "AI & ML",        bg: "#E6F1FB", color: "#185FA5", border: "#B5D4F4" },
-    { label: "Blockchain",     bg: "#EEEDFE", color: "#534AB7", border: "#CECBF6" },
-    { label: "Data Science",   bg: "#E1F5EE", color: "#0F6E56", border: "#9FE1CB" },
-    { label: "IoT",            bg: "#FAEEDA", color: "#854F0B", border: "#FAC775" },
-    { label: "Web Development",bg: "#fadada", color: "#850b0b", border: "#ff8c88" },
-    { label: "Rowing",         bg: "#FBEAF0", color: "#993556", border: "#F4C0D1" },
-  ];
+  { label: "Data Analytics",  bg: "#E6F1FB", color: "#185FA5", border: "#B5D4F4" },
+  { label: "AI & ML",          bg: "#EEEDFE", color: "#534AB7", border: "#CECBF6" },
+  { label: "Python",           bg: "#E1F5EE", color: "#0F6E56", border: "#9FE1CB" },
+  { label: "SQL",              bg: "#FAEEDA", color: "#854F0B", border: "#FAC775" },
+  { label: "Web Development",  bg: "#FADADA", color: "#850B0B", border: "#FF8C88" },
+  { label: "Rowing",           bg: "#FBEAF0", color: "#993556", border: "#F4C0D1" },
+];
 
   return (
     <section id="about" className="section-padding bg-secondary/30" style={{ position: "relative" }}>
@@ -357,9 +357,18 @@ const About = () => {
             }} />
 
             {[
-              <>Currently pursuing <strong>B.Tech in Computer Science Engineering</strong> at MIT ADT University, Pune — with a deep interest in Artificial Intelligence, Machine Learning, and Data Analysis.</>,
-              <>I believe in hands-on learning and have gained practical experience through <strong>internships, projects, hackathons</strong>, and industry-recognized certifications. My approach combines theoretical understanding with real-world application.</>,
-              <>Beyond academics, I represented MIT ADT University at the <strong>All India University level in rowing 2025, 2026</strong> — an experience that taught me discipline, consistency, and teamwork which I apply in everything I do.</>,
+<>
+  Currently pursuing <strong>B.Tech in Computer Science Engineering</strong> at MIT ADT University, Pune, with a strong interest in <strong>Data Analytics, Artificial Intelligence, Machine Learning, and Web Development</strong>.
+</>,
+<>
+  I enjoy applying technology to solve real-world problems and continuously enhance my skills through <strong>internships, hands-on projects, hackathons</strong>, and industry-recognized certifications. I believe in learning by building practical solutions and gaining experience through real-world applications.
+</>,
+<>
+  Beyond academics, I represented MIT ADT University at the <strong>All India University Rowing Championships (2025 & 2026)</strong> and earned a bronze medal at the <strong>1st Maharashtra Under-23 State Rowing Championship 2026</strong>. These experiences strengthened my discipline, teamwork, and resilience.
+</>,
+<>
+  These experiences have strengthened my <strong>discipline, resilience, teamwork, leadership, and time management</strong>—qualities that I bring to every project and professional opportunity.
+</>,
             ].map((text, i) => (
               <p key={i} className="text-muted-foreground leading-relaxed mb-4"
                 style={{
