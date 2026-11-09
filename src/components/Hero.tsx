@@ -184,17 +184,17 @@ const Hero = () => {
               : "translateX(-30px)",
             transition: v0 ? "opacity 0.7s ease, transform 0.9s cubic-bezier(0.2,0.8,0.2,1)" : "opacity 0.7s ease, transform 0.7s ease",
           }}>
-            <div style={{ position: "relative", width: "220px", height: "220px" }}>
+            <div style={{ position: "relative", width: "280px", height: "280px" }}>
               <div style={{ position: "absolute", inset: "-18px", borderRadius: "50%", border: "1.5px dashed rgba(59,130,246,0.25)", animation: "spin-slow 20s linear infinite reverse" }} />
               <div style={{ position: "absolute", inset: "-8px", borderRadius: "50%", border: "2px dashed rgba(59,130,246,0.35)", animation: "spin-slow 12s linear infinite" }} />
               <img src={profileImage} alt="Sanjyot Dhamal" style={{
-                width: "220px", height: "220px", borderRadius: "50%",
+                width: "280px", height: "280px", borderRadius: "50%",
                 objectFit: "cover", objectPosition: "center top",
                 border: "3px solid white",
                 boxShadow: "0 8px 32px rgba(59,130,246,0.15)",
                 position: "relative", zIndex: 1,
               }} />
-              <div style={{ position: "absolute", bottom: "14px", right: "14px", width: "16px", height: "16px", borderRadius: "50%", background: "#10b981", border: "3px solid white", zIndex: 2, boxShadow: "0 0 8px rgba(16,185,129,0.5)" }} />
+              <div style={{ position: "absolute", bottom: "18px", right: "18px", width: "18px", height: "18px", borderRadius: "50%", background: "#10b981", border: "3px solid white", zIndex: 2, boxShadow: "0 0 8px rgba(16,185,129,0.5)" }} />
             </div>
             <div style={{ ...fadeUp(v5), display: "flex", gap: "10px" }}>
               <SocialBtn href="https://github.com/sanjyotdhamal">
