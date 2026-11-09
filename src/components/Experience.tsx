@@ -24,6 +24,19 @@ const Experience = () => {
   const color = "#3b82f6";
 
   const experiences = [
+        {
+      title: "Cisco Virtual Intern",
+      duration: "June 2026 – August 2026",
+      company: "Cisco Networking Academy | AICTE – Virtual",
+      responsibilities: [
+        "Completed the Cisco AICTE Virtual Internship Program 2026, covering networking, data analytics and modern AI",
+        "Completed Networking Basics, covering core networking protocols, architectures and connectivity fundamentals",
+        "Completed Data Analytics Essentials, covering data processing pipelines, exploratory data analysis and insights from system metrics",
+        "Completed Introduction to Modern AI, gaining practical exposure to machine learning concepts, AI frameworks and real-world applications",
+        "Built NetSage AI, a capstone project using data analytics and modern AI techniques for network telemetry, automated monitoring and predictive diagnostics",
+        "Strengthened understanding of how networking infrastructure, data analytics and AI work together in intelligent systems",
+      ],
+    },
     {
       title: "ServiceNow System Administrator Intern",
       duration: "May 2026 – June 2026",
